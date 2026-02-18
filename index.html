@@ -3,212 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HolyGram 2.0</title>
+    <title>HolyGram - Mestre da Palavra</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #fafafa;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
+        :root { --ig-blue: #0095f6; --gold: #ffd700; --bg: #fafafa; --gray: #8e8e8e; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; }
+        .app-container { max-width: 500px; margin: auto; background: white; min-height: 100vh; padding-bottom: 50px; }
 
-        .mobile-container {
-            max-width: 450px;
-            width: 100%;
-            background: white;
-            min-height: 100vh;
-            border: 1px solid #dbdbdb;
-        }
+        /* Estilo das Conquistas */
+        .badges-section { display: flex; justify-content: space-around; padding: 20px; background: #f8f9fa; border-bottom: 1px solid #ddd; }
+        .badge { text-align: center; opacity: 0.2; transition: 0.5s; filter: grayscale(100%); }
+        .badge.unlocked { opacity: 1; filter: grayscale(0%); transform: scale(1.1); }
+        .badge-icon { font-size: 30px; display: block; }
+        .badge-name { font-size: 10px; font-weight: bold; margin-top: 5px; }
 
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            border-bottom: 1px solid #dbdbdb;
-            position: sticky;
-            top: 0;
-            background: white;
-            z-index: 100;
-        }
+        /* Card Principal */
+        .reading-card { margin: 20px; padding: 25px; border-radius: 20px; background: #262626; color: white; position: relative; overflow: hidden; }
+        .reading-card::after { content: "📖"; position: absolute; right: -10px; bottom: -10px; font-size: 100px; opacity: 0.1; }
 
-        header h1 {
-            font-family: 'Billabong', 'Segoe UI', cursive;
-            font-size: 28px;
-            margin: 0;
-        }
+        .progress-container { padding: 0 20px; }
+        .bar-bg { height: 12px; background: #eee; border-radius: 6px; margin: 10px 0; }
+        .bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ffd700, #ff8c00); border-radius: 6px; transition: 0.8s; }
 
-        /* Stories */
-        .stories-container {
-            display: flex;
-            padding: 15px 10px;
-            overflow-x: auto;
-            border-bottom: 1px solid #dbdbdb;
-            gap: 15px;
-            scrollbar-width: none; /* Esconde scroll no Firefox */
-        }
-        .stories-container::-webkit-scrollbar { display: none; } /* Esconde scroll no Chrome */
-
-        .story {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 70px;
-        }
-
-        .story-ring {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            padding: 2px;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-
-        .story-img {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            border: 2px solid white;
-            background-color: #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .story span {
-            font-size: 11px;
-            color: #262626;
-        }
-
-        /* Post */
-        .post {
-            margin-bottom: 20px;
-        }
-
-        .post-header {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-        }
-
-        .user-thumb {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #ddd;
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .post-img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            background: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            font-size: 20px;
-            padding: 40px;
-            box-sizing: border-box;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .post-content {
-            padding: 12px;
-        }
-
-        .btns { font-size: 22px; cursor: pointer; margin-bottom: 8px; }
-        .likes { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
-        .caption { font-size: 14px; line-height: 1.4; }
-        .caption b { margin-right: 5px; }
+        .btn-check { width: calc(100% - 40px); margin: 20px; padding: 18px; border: none; border-radius: 12px; background: var(--ig-blue); color: white; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,149,246,0.3); }
+        
+        .status-text { text-align: center; color: var(--gray); font-size: 14px; }
     </style>
 </head>
 <body>
 
-<div class="mobile-container">
-    <header>
-        <h1>HolyGram</h1>
-        <div style="font-size: 20px;">➕ ❤️ ✉️</div>
+<div class="app-container">
+    <header style="padding: 20px; border-bottom: 1px solid #eee; text-align: center;">
+        <h2 style="font-family: cursive; margin: 0;">HolyGram</h2>
     </header>
 
-    <div class="stories-container">
-        <div class="story">
-            <div class="story-ring"><div class="story-img">🧔</div></div>
-            <span>Seu Story</span>
+    <div class="badges-section">
+        <div class="badge" id="badge-1">
+            <span class="badge-icon">🌱</span>
+            <span class="badge-name">PRIMEIROS PASSOS</span>
         </div>
-        <div class="story">
-            <div class="story-ring"><div class="story-img">🚢</div></div>
-            <span>noe_arc</span>
+        <div class="badge" id="badge-2">
+            <span class="badge-icon">🛡️</span>
+            <span class="badge-name">FIEL NO POUCO</span>
         </div>
-        <div class="story">
-            <div class="story-ring"><div class="story-img">🔥</div></div>
-            <span>elias_propht</span>
-        </div>
-        <div class="story">
-            <div class="story-ring"><div class="story-img">🍎</div></div>
-            <span>eva_jardim</span>
-        </div>
-        <div class="story">
-            <div class="story-ring"><div class="story-img">🦁</div></div>
-            <span>daniel_lion</span>
+        <div class="badge" id="badge-3">
+            <span class="badge-icon">🔥</span>
+            <span class="badge-name">BEREANO</span>
         </div>
     </div>
 
-    <article class="post">
-        <div class="post-header">
-            <div class="user-thumb">👑</div>
-            <b>salomao_sabio</b>
-        </div>
-        <div class="post-img" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=500&q=60');">
-            "O temor do Senhor é o princípio da sabedoria."
-        </div>
-        <div class="post-content">
-            <div class="btns" onclick="toggleLike(this)">🤍 💬 ✈️</div>
-            <div class="likes">6.742 curtidas</div>
-            <div class="caption">
-                <b>salomao_sabio</b> Dica de hoje para quem quer prosperar de verdade. Menos ego, mais temor! 🧠✨ #Proverbios #Wisdom
-            </div>
-        </div>
-    </article>
+    <div class="reading-card">
+        <div style="font-size: 12px; text-transform: uppercase;">Leitura de Hoje</div>
+        <div id="livro-do-dia" style="font-size: 32px; font-weight: bold; margin: 5px 0;">João 1</div>
+        <p id="frase-dia" style="opacity: 0.8;">"No princípio era o Verbo..."</p>
+    </div>
 
-    <article class="post">
-        <div class="post-header">
-            <div class="user-thumb">🏹</div>
-            <b>jessica_ester</b>
+    <div class="progress-container">
+        <div style="display: flex; justify-content: space-between; font-size: 14px;">
+            <b>Seu esforço espiritual</b>
+            <span id="txt-progresso">0%</span>
         </div>
-        <div class="post-img" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519834785169-98be25ec3f84?auto=format&fit=crop&w=500&q=60');">
-            "Se perecer, pereci."
-        </div>
-        <div class="post-content">
-            <div class="btns" onclick="toggleLike(this)">🤍 💬 ✈️</div>
-            <div class="likes">9.103 curtidas</div>
-            <div class="caption">
-                <b>jessica_ester</b> Às vezes a gente precisa de coragem pra entrar na presença do Rei. O jejum tá pago! 👑🙏 #Rainha #Propósito
-            </div>
-        </div>
-    </article>
+        <div class="bar-bg"><div class="bar-fill" id="fill"></div></div>
+    </div>
+
+    <button class="btn-check" onclick="progredir()">✅ Marcar Capítulo Lido</button>
+    
+    <p class="status-text" id="status-incentivo">Você ainda não leu nada hoje. Vamos começar?</p>
 </div>
 
 <script>
-    function toggleLike(el) {
-        if(el.innerText.startsWith('🤍')) {
-            el.innerText = '❤️ 💬 ✈️';
-            el.style.color = 'red';
-        } else {
-            el.innerText = '🤍 💬 ✈️';
-            el.style.color = 'black';
+    let pontos = 0;
+
+    function progredir() {
+        if (pontos < 100) {
+            pontos += 34; // 3 cliques para completar aproximadamente 100%
+            if (pontos > 100) pontos = 100;
+
+            document.getElementById('fill').style.width = pontos + "%";
+            document.getElementById('txt-progresso').innerText = Math.round(pontos) + "%";
+
+            // Lógica de desbloqueio de medalhas
+            if (pontos >= 34) {
+                document.getElementById('badge-1').classList.add('unlocked');
+                document.getElementById('status-incentivo').innerText = "Boa! O importante é o primeiro passo.";
+            }
+            if (pontos >= 68) {
+                document.getElementById('badge-2').classList.add('unlocked');
+                document.getElementById('status-incentivo').innerText = "Muito bem! Você está sendo constante.";
+            }
+            if (pontos >= 100) {
+                document.getElementById('badge-3').classList.add('unlocked');
+                document.getElementById('status-incentivo').innerText = "Incrível! Meta do dia alcançada! 🌟";
+                confetti(); // Se tivesse uma biblioteca de confete aqui
+            }
         }
     }
 </script>
