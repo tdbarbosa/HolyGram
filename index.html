@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HolyGram 2.0</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #fafafa;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .mobile-container {
+            max-width: 450px;
+            width: 100%;
+            background: white;
+            min-height: 100vh;
+            border: 1px solid #dbdbdb;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #dbdbdb;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-family: 'Billabong', 'Segoe UI', cursive;
+            font-size: 28px;
+            margin: 0;
+        }
+
+        /* Stories */
+        .stories-container {
+            display: flex;
+            padding: 15px 10px;
+            overflow-x: auto;
+            border-bottom: 1px solid #dbdbdb;
+            gap: 15px;
+            scrollbar-width: none; /* Esconde scroll no Firefox */
+        }
+        .stories-container::-webkit-scrollbar { display: none; } /* Esconde scroll no Chrome */
+
+        .story {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 70px;
+        }
+
+        .story-ring {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            padding: 2px;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .story-img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 2px solid white;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .story span {
+            font-size: 11px;
+            color: #262626;
+        }
+
+        /* Post */
+        .post {
+            margin-bottom: 20px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .user-thumb {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #ddd;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .post-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            padding: 40px;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .post-content {
+            padding: 12px;
+        }
+
+        .btns { font-size: 22px; cursor: pointer; margin-bottom: 8px; }
+        .likes { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
+        .caption { font-size: 14px; line-height: 1.4; }
+        .caption b { margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="mobile-container">
+    <header>
+        <h1>HolyGram</h1>
+        <div style="font-size: 20px;">➕ ❤️ ✉️</div>
+    </header>
+
+    <div class="stories-container">
+        <div class="story">
+            <div class="story-ring"><div class="story-img">🧔</div></div>
+            <span>Seu Story</span>
+        </div>
+        <div class="story">
+            <div class="story-ring"><div class="story-img">🚢</div></div>
+            <span>noe_arc</span>
+        </div>
+        <div class="story">
+            <div class="story-ring"><div class="story-img">🔥</div></div>
+            <span>elias_propht</span>
+        </div>
+        <div class="story">
+            <div class="story-ring"><div class="story-img">🍎</div></div>
+            <span>eva_jardim</span>
+        </div>
+        <div class="story">
+            <div class="story-ring"><div class="story-img">🦁</div></div>
+            <span>daniel_lion</span>
+        </div>
+    </div>
+
+    <article class="post">
+        <div class="post-header">
+            <div class="user-thumb">👑</div>
+            <b>salomao_sabio</b>
+        </div>
+        <div class="post-img" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=500&q=60');">
+            "O temor do Senhor é o princípio da sabedoria."
+        </div>
+        <div class="post-content">
+            <div class="btns" onclick="toggleLike(this)">🤍 💬 ✈️</div>
+            <div class="likes">6.742 curtidas</div>
+            <div class="caption">
+                <b>salomao_sabio</b> Dica de hoje para quem quer prosperar de verdade. Menos ego, mais temor! 🧠✨ #Proverbios #Wisdom
+            </div>
+        </div>
+    </article>
+
+    <article class="post">
+        <div class="post-header">
+            <div class="user-thumb">🏹</div>
+            <b>jessica_ester</b>
+        </div>
+        <div class="post-img" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519834785169-98be25ec3f84?auto=format&fit=crop&w=500&q=60');">
+            "Se perecer, pereci."
+        </div>
+        <div class="post-content">
+            <div class="btns" onclick="toggleLike(this)">🤍 💬 ✈️</div>
+            <div class="likes">9.103 curtidas</div>
+            <div class="caption">
+                <b>jessica_ester</b> Às vezes a gente precisa de coragem pra entrar na presença do Rei. O jejum tá pago! 👑🙏 #Rainha #Propósito
+            </div>
+        </div>
+    </article>
+</div>
+
+<script>
+    function toggleLike(el) {
+        if(el.innerText.startsWith('🤍')) {
+            el.innerText = '❤️ 💬 ✈️';
+            el.style.color = 'red';
+        } else {
+            el.innerText = '🤍 💬 ✈️';
+            el.style.color = 'black';
+        }
+    }
+</script>
+
+</body>
+</html>
