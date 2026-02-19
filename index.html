@@ -1,47 +1,368 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HolyGram - Original Style</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HolyGram Professional</title>
 
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #fafafa;
-            margin: 0;
-            color: #262626;
-        }
+<style>
 
-        /* Header */
-        header {
-            background-color: white;
-            border-bottom: 1px solid #dbdbdb;
-            padding: 15px 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+body{
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+background:#fafafa;
+margin:0;
+color:#262626;
+}
 
-        header h1 {
-            font-family: Georgia, serif;
-            font-style: italic;
-            font-weight: bold;
-            font-size: 28px;
-            margin: 0;
-        }
+header{
+background:white;
+border-bottom:1px solid #dbdbdb;
+padding:15px;
+text-align:center;
+position:sticky;
+top:0;
+z-index:999;
+}
 
-        .main-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px 10px;
-        }
+header h1{
+font-family:Georgia,serif;
+font-style:italic;
+margin:0;
+}
 
-        /* Post */
-        .post {
-            background-color: white;
-            border: 1px solid #dbdbdb;
-            border-radius: 8px;
-            margin-b
+.container{
+max-width:600px;
+margin:auto;
+padding:20px 10px;
+}
+
+.post{
+background:white;
+border:1px solid #dbdbdb;
+border-radius:8px;
+margin-bottom:30px;
+overflow:hidden;
+}
+
+.post-header{
+display:flex;
+align-items:center;
+padding:12px;
+}
+
+.avatar{
+width:36px;
+height:36px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-right:10px;
+}
+
+.username{
+font-weight:bold;
+}
+
+/* carousel */
+
+.carousel{
+position:relative;
+overflow:hidden;
+}
+
+.slides{
+display:flex;
+transition:transform .35s ease;
+}
+
+.slide{
+min-width:100%;
+position:relative;
+}
+
+.slide img{
+width:100%;
+height:500px;
+object-fit:cover;
+}
+
+.overlay{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:rgba(255,255,255,.92);
+padding:20px;
+border-radius:8px;
+}
+
+/* buttons */
+
+.nav-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,.4);
+color:white;
+border:none;
+font-size:22px;
+padding:8px 12px;
+cursor:pointer;
+border-radius:50%;
+}
+
+.prev{left:10px;}
+.next{right:10px;}
+
+/* dots */
+
+.dots{
+text-align:center;
+padding:10px;
+}
+
+.dot{
+height:8px;
+width:8px;
+background:#ccc;
+border-radius:50%;
+display:inline-block;
+margin:0 4px;
+cursor:pointer;
+}
+
+.dot.active{
+background:#0095f6;
+}
+
+/* footer */
+
+.footer{
+padding:12px;
+}
+
+.actions{
+font-size:24px;
+cursor:pointer;
+}
+
+.like{
+cursor:pointer;
+transition:.2s;
+}
+
+.like.liked{
+color:red;
+transform:scale(1.2);
+}
+
+.likes-count{
+font-weight:bold;
+margin-top:5px;
+}
+
+.comment-input{
+width:100%;
+padding:8px;
+margin-top:10px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+.comment{
+font-size:14px;
+margin-top:4px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>HolyGram</h1>
+</header>
+
+<div class="container">
+
+<!-- POST -->
+<div class="post" data-post>
+
+<div class="post-header">
+<div class="avatar" style="background:#fbca04;">🧔</div>
+<div class="username">moises_lider</div>
+</div>
+
+<div class="carousel">
+
+<div class="slides">
+
+<div class="slide">
+<img src="https://picsum.photos/id/1015/600/500">
+<div class="overlay">
+"Diga aos filhos de Israel que marchem!"
+</div>
+</div>
+
+<div class="slide">
+<img src="https://picsum.photos/id/1016/600/500">
+<div class="overlay">
+"O Senhor pelejará por vós"
+</div>
+</div>
+
+</div>
+
+<button class="nav-btn prev">‹</button>
+<button class="nav-btn next">›</button>
+
+</div>
+
+<div class="dots"></div>
+
+<div class="footer">
+
+<div class="actions">
+<span class="like">♡</span>
+💬 ✈️
+</div>
+
+<div class="likes-count">0 curtidas</div>
+
+<div class="comments"></div>
+
+<input class="comment-input" placeholder="Adicionar comentário...">
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* CAROUSEL */
+
+document.querySelectorAll("[data-post]").forEach(post=>{
+
+const slides=post.querySelector(".slides");
+const slide=post.querySelectorAll(".slide");
+
+const prev=post.querySelector(".prev");
+const next=post.querySelector(".next");
+
+const dotsContainer=post.querySelector(".dots");
+
+let index=0;
+
+/* create dots */
+
+slide.forEach((_,i)=>{
+const dot=document.createElement("span");
+dot.className="dot";
+if(i==0)dot.classList.add("active");
+
+dot.onclick=()=>go(i);
+
+dotsContainer.appendChild(dot);
+});
+
+const dots=post.querySelectorAll(".dot");
+
+function update(){
+slides.style.transform=`translateX(-${index*100}%)`;
+
+dots.forEach(d=>d.classList.remove("active"));
+dots[index].classList.add("active");
+}
+
+function go(i){
+index=i;
+update();
+}
+
+prev.onclick=()=>{
+index=(index-1+slide.length)%slide.length;
+update();
+}
+
+next.onclick=()=>{
+index=(index+1)%slide.length;
+update();
+}
+
+/* swipe */
+
+let startX=0;
+
+slides.addEventListener("touchstart",e=>{
+startX=e.touches[0].clientX;
+});
+
+slides.addEventListener("touchend",e=>{
+let endX=e.changedTouches[0].clientX;
+
+if(endX-startX>50)prev.onclick();
+if(startX-endX>50)next.onclick();
+});
+
+});
+
+/* LIKE SYSTEM */
+
+document.querySelectorAll(".post").forEach(post=>{
+
+let liked=false;
+let likes=0;
+
+const btn=post.querySelector(".like");
+const display=post.querySelector(".likes-count");
+
+btn.onclick=()=>{
+
+liked=!liked;
+
+likes+=liked?1:-1;
+
+btn.classList.toggle("liked");
+
+btn.textContent=liked?"♥":"♡";
+
+display.textContent=likes+" curtidas";
+
+};
+
+});
+
+/* COMMENTS */
+
+document.querySelectorAll(".post").forEach(post=>{
+
+const input=post.querySelector(".comment-input");
+const container=post.querySelector(".comments");
+
+input.addEventListener("keypress",e=>{
+
+if(e.key==="Enter" && input.value.trim()!=""){
+
+const div=document.createElement("div");
+
+div.className="comment";
+
+div.innerHTML="<b>voce</b> "+input.value;
+
+container.appendChild(div);
+
+input.value="";
+
+}
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
