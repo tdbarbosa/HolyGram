@@ -3,172 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HolyGram Professional</title>
+<title>HolyGram Pro Clone</title>
 
 <style>
 
 body{
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
 background:#fafafa;
 margin:0;
-color:#262626;
 }
 
 header{
 background:white;
-border-bottom:1px solid #dbdbdb;
 padding:15px;
 text-align:center;
+border-bottom:1px solid #ddd;
+font-family:Georgia;
+font-style:italic;
+font-size:24px;
 position:sticky;
 top:0;
-z-index:999;
-}
-
-header h1{
-font-family:Georgia,serif;
-font-style:italic;
-margin:0;
 }
 
 .container{
 max-width:600px;
 margin:auto;
-padding:20px 10px;
+padding:10px;
+}
+
+.create{
+background:white;
+padding:10px;
+margin-bottom:20px;
+border-radius:8px;
+}
+
+input,textarea{
+width:100%;
+padding:8px;
+margin-top:5px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+button{
+margin-top:8px;
+padding:8px;
+border:none;
+background:#0095f6;
+color:white;
+border-radius:6px;
+cursor:pointer;
 }
 
 .post{
 background:white;
-border:1px solid #dbdbdb;
+margin-bottom:20px;
 border-radius:8px;
-margin-bottom:30px;
 overflow:hidden;
+border:1px solid #ddd;
 }
 
 .post-header{
-display:flex;
-align-items:center;
-padding:12px;
-}
-
-.avatar{
-width:36px;
-height:36px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-margin-right:10px;
-}
-
-.username{
+padding:10px;
 font-weight:bold;
 }
 
-/* carousel */
-
 .carousel{
-position:relative;
 overflow:hidden;
+position:relative;
 }
 
 .slides{
 display:flex;
-transition:transform .35s ease;
+transition:.3s;
 }
 
 .slide{
 min-width:100%;
-position:relative;
 }
 
 .slide img{
 width:100%;
-height:500px;
+height:400px;
 object-fit:cover;
 }
 
-.overlay{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:rgba(255,255,255,.92);
-padding:20px;
-border-radius:8px;
-}
-
-/* buttons */
-
-.nav-btn{
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background:rgba(0,0,0,.4);
-color:white;
-border:none;
-font-size:22px;
-padding:8px 12px;
-cursor:pointer;
-border-radius:50%;
-}
-
-.prev{left:10px;}
-.next{right:10px;}
-
-/* dots */
-
-.dots{
-text-align:center;
+.footer{
 padding:10px;
 }
 
-.dot{
-height:8px;
-width:8px;
-background:#ccc;
-border-radius:50%;
-display:inline-block;
-margin:0 4px;
+.like,.save{
 cursor:pointer;
+font-size:20px;
+margin-right:10px;
 }
 
-.dot.active{
-background:#0095f6;
-}
-
-/* footer */
-
-.footer{
-padding:12px;
-}
-
-.actions{
-font-size:24px;
-cursor:pointer;
-}
-
-.like{
-cursor:pointer;
-transition:.2s;
-}
-
-.like.liked{
-color:red;
-transform:scale(1.2);
-}
-
-.likes-count{
-font-weight:bold;
-margin-top:5px;
-}
-
-.comment-input{
-width:100%;
-padding:8px;
-margin-top:10px;
-border:1px solid #ddd;
-border-radius:6px;
-}
+.liked{color:red;}
+.saved{color:orange;}
 
 .comment{
 font-size:14px;
@@ -176,22 +108,134 @@ margin-top:4px;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<header>
-<h1>HolyGram</h1>
-</header>
+<header>HolyGram</header>
 
 <div class="container">
 
-<!-- POST -->
-<div class="post" data-post>
+<div class="create">
+
+<input id="username" placeholder="Seu nome">
+
+<input id="image" placeholder="URL da imagem">
+
+<textarea id="caption" placeholder="Legenda"></textarea>
+
+<button onclick="createPost()">Postar</button>
+
+</div>
+
+<div id="feed"></div>
+
+</div>
+
+<script>
+
+/* DATABASE */
+
+let posts=JSON.parse(localStorage.getItem("holygram"))||[];
+
+/* SAVE */
+
+function save(){
+localStorage.setItem("holygram",JSON.stringify(posts));
+}
+
+/* CREATE */
+
+function createPost(){
+
+let username=document.getElementById("username").value;
+let image=document.getElementById("image").value;
+let caption=document.getElementById("caption").value;
+
+if(!username||!image)return;
+
+posts.unshift({
+id:Date.now(),
+username,
+image,
+caption,
+likes:0,
+liked:false,
+saved:false,
+comments:[]
+});
+
+save();
+render();
+
+}
+
+/* LIKE */
+
+function toggleLike(id){
+
+let post=posts.find(p=>p.id==id);
+
+post.liked=!post.liked;
+
+post.likes+=post.liked?1:-1;
+
+save();
+render();
+
+}
+
+/* SAVE POST */
+
+function toggleSave(id){
+
+let post=posts.find(p=>p.id==id);
+
+post.saved=!post.saved;
+
+save();
+render();
+
+}
+
+/* COMMENT */
+
+function addComment(id,input){
+
+if(!input.value)return;
+
+let post=posts.find(p=>p.id==id);
+
+post.comments.push(input.value);
+
+input.value="";
+
+save();
+render();
+
+}
+
+/* RENDER */
+
+function render(){
+
+let feed=document.getElementById("feed");
+
+feed.innerHTML="";
+
+posts.forEach(post=>{
+
+let el=document.createElement("div");
+
+el.className="post";
+
+el.innerHTML=`
 
 <div class="post-header">
-<div class="avatar" style="background:#fbca04;">🧔</div>
-<div class="username">moises_lider</div>
+
+${post.username}
+
 </div>
 
 <div class="carousel">
@@ -199,168 +243,63 @@ margin-top:4px;
 <div class="slides">
 
 <div class="slide">
-<img src="https://picsum.photos/id/1015/600/500">
-<div class="overlay">
-"Diga aos filhos de Israel que marchem!"
-</div>
-</div>
 
-<div class="slide">
-<img src="https://picsum.photos/id/1016/600/500">
-<div class="overlay">
-"O Senhor pelejará por vós"
-</div>
+<img src="${post.image}">
+
 </div>
 
 </div>
 
-<button class="nav-btn prev">‹</button>
-<button class="nav-btn next">›</button>
-
 </div>
-
-<div class="dots"></div>
 
 <div class="footer">
 
-<div class="actions">
-<span class="like">♡</span>
-💬 ✈️
+<span class="like ${post.liked?"liked":""}"
+onclick="toggleLike(${post.id})">
+
+${post.liked?"♥":"♡"}
+
+</span>
+
+<span class="save ${post.saved?"saved":""}"
+onclick="toggleSave(${post.id})">
+
+🔖
+
+</span>
+
+<div>
+
+<b>${post.likes} curtidas</b>
+
 </div>
 
-<div class="likes-count">0 curtidas</div>
+<div>
 
-<div class="comments"></div>
-
-<input class="comment-input" placeholder="Adicionar comentário...">
+${post.caption}
 
 </div>
 
-</div>
+<div>
+
+${post.comments.map(c=>`<div class="comment"><b>voce</b> ${c}</div>`).join("")}
 
 </div>
 
-<script>
+<input placeholder="Comentar..."
+onkeypress="if(event.key==='Enter')addComment(${post.id},this)">
 
-/* CAROUSEL */
+</div>
 
-document.querySelectorAll("[data-post]").forEach(post=>{
+`;
 
-const slides=post.querySelector(".slides");
-const slide=post.querySelectorAll(".slide");
-
-const prev=post.querySelector(".prev");
-const next=post.querySelector(".next");
-
-const dotsContainer=post.querySelector(".dots");
-
-let index=0;
-
-/* create dots */
-
-slide.forEach((_,i)=>{
-const dot=document.createElement("span");
-dot.className="dot";
-if(i==0)dot.classList.add("active");
-
-dot.onclick=()=>go(i);
-
-dotsContainer.appendChild(dot);
-});
-
-const dots=post.querySelectorAll(".dot");
-
-function update(){
-slides.style.transform=`translateX(-${index*100}%)`;
-
-dots.forEach(d=>d.classList.remove("active"));
-dots[index].classList.add("active");
-}
-
-function go(i){
-index=i;
-update();
-}
-
-prev.onclick=()=>{
-index=(index-1+slide.length)%slide.length;
-update();
-}
-
-next.onclick=()=>{
-index=(index+1)%slide.length;
-update();
-}
-
-/* swipe */
-
-let startX=0;
-
-slides.addEventListener("touchstart",e=>{
-startX=e.touches[0].clientX;
-});
-
-slides.addEventListener("touchend",e=>{
-let endX=e.changedTouches[0].clientX;
-
-if(endX-startX>50)prev.onclick();
-if(startX-endX>50)next.onclick();
-});
+feed.appendChild(el);
 
 });
-
-/* LIKE SYSTEM */
-
-document.querySelectorAll(".post").forEach(post=>{
-
-let liked=false;
-let likes=0;
-
-const btn=post.querySelector(".like");
-const display=post.querySelector(".likes-count");
-
-btn.onclick=()=>{
-
-liked=!liked;
-
-likes+=liked?1:-1;
-
-btn.classList.toggle("liked");
-
-btn.textContent=liked?"♥":"♡";
-
-display.textContent=likes+" curtidas";
-
-};
-
-});
-
-/* COMMENTS */
-
-document.querySelectorAll(".post").forEach(post=>{
-
-const input=post.querySelector(".comment-input");
-const container=post.querySelector(".comments");
-
-input.addEventListener("keypress",e=>{
-
-if(e.key==="Enter" && input.value.trim()!=""){
-
-const div=document.createElement("div");
-
-div.className="comment";
-
-div.innerHTML="<b>voce</b> "+input.value;
-
-container.appendChild(div);
-
-input.value="";
 
 }
 
-});
-
-});
+render();
 
 </script>
 
