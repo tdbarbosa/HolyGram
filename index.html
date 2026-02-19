@@ -2,8 +2,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HolyGram - Original Style</title>
+
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -24,7 +26,7 @@
         }
 
         header h1 {
-            font-family: 'serif'; 
+            font-family: Georgia, serif;
             font-style: italic;
             font-weight: bold;
             font-size: 28px;
@@ -42,162 +44,4 @@
             background-color: white;
             border: 1px solid #dbdbdb;
             border-radius: 8px;
-            margin-bottom: 40px;
-            overflow: hidden;
-        }
-
-        .post-header {
-            display: flex;
-            align-items: center;
-            padding: 14px;
-        }
-
-        .user-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            margin-right: 12px;
-            background: #ccc;
-        }
-
-        .username {
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        /* Carrossel Ajustado */
-        .carousel-wrapper {
-            position: relative;
-            width: 100%;
-        }
-
-        .carousel-container {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-        }
-
-        .carousel-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .slide {
-            min-width: 100%;
-            scroll-snap-align: start;
-            position: relative;
-        }
-
-        .post-image {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            display: block;
-            background-color: #efefef;
-        }
-
-        .verse-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-            width: 70%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .verse-overlay h2 {
-            margin: 0;
-            font-size: 18px;
-            font-family: 'Georgia', serif;
-            font-style: italic;
-        }
-
-        /* Footer */
-        .post-footer {
-            padding: 15px;
-        }
-
-        .icons { font-size: 24px; margin-bottom: 8px; cursor: pointer; }
-        .likes { font-weight: bold; font-size: 14px; margin-bottom: 5px; display: block;}
-        .description { font-size: 14px; line-height: 1.5; }
-        
-        .comment-box {
-            margin-top: 10px;
-            border-top: 1px solid #efefef;
-            padding-top: 10px;
-            font-size: 13px;
-        }
-    </style>
-</head>
-<body>
-
-    <header><h1>HolyGram</h1></header>
-
-    <div class="main-container">
-        
-        <article class="post">
-            <div class="post-header">
-                <div class="user-avatar" style="background: #fbca04; display: flex; align-items: center; justify-content: center;">🧔</div>
-                <span class="username">moises_lider</span>
-            </div>
-
-            <div class="carousel-wrapper">
-                <div class="carousel-container">
-                    <div class="slide">
-                        <img src="https://picsum.photos/id/1015/600/500" class="post-image" alt="Mar">
-                        <div class="verse-overlay">
-                            <h2>"Diga aos filhos de Israel que marchem!" 🌊</h2>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <img src="https://picsum.photos/id/1016/600/500" class="post-image" alt="Montanha">
-                        <div class="verse-overlay">
-                            <h2>"O Senhor pelejará por vós, e vós vos calareis." ⚡</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post-footer">
-                <div class="icons">❤️ 💬 ✈️</div>
-                <span class="likes">Curtido por arão_bro e outras 50.231 pessoas</span>
-                <div class="description">
-                    <b>moises_lider</b> Arraste para o lado e veja o mar abrir! Que dia, meus amigos. Que dia! 🙌 #Exodo #Milagre #Fé
-                </div>
-                <div class="comment-box">
-                    <b>farao_ofc</b> Ainda não superei o prejuízo com os carros... 😤<br>
-                    <b>josue_oficial</b> O próximo passo é Canaã! 🏹
-                </div>
-            </div>
-        </article>
-
-        <article class="post">
-            <div class="post-header">
-                <div class="user-avatar" style="background: #36a8f5; display: flex; align-items: center; justify-content: center;">👑</div>
-                <span class="username">rei_davi</span>
-            </div>
-
-            <div class="carousel-wrapper">
-                <img src="https://picsum.photos/id/1025/600/500" class="post-image">
-                <div class="verse-overlay">
-                    <h2>"O Senhor é a minha luz e a minha salvação." 🕯️</h2>
-                </div>
-            </div>
-
-            <div class="post-footer">
-                <div class="icons">❤️ 💬 ✈️</div>
-                <span class="likes">8.940 curtidas</span>
-                <div class="description">
-                    <b>rei_davi</b> Compondo no palácio hoje. A inspiração vem lá do alto! 🎶✨ #Salmos #Gratidão
-                </div>
-            </div>
-        </article>
-
-    </div>
-
-</body>
-</html>
+            margin-b
