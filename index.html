@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HolyGram - Carrossel Edition</title>
+    <title>HolyGram - Original Style</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -12,10 +12,11 @@
             color: #262626;
         }
 
+        /* Header */
         header {
             background-color: white;
             border-bottom: 1px solid #dbdbdb;
-            padding: 12px 0;
+            padding: 15px 0;
             text-align: center;
             position: sticky;
             top: 0;
@@ -23,75 +24,113 @@
         }
 
         header h1 {
-            font-family: 'Georgia', serif; 
+            font-family: 'serif'; 
             font-style: italic;
             font-weight: bold;
-            font-size: 26px;
+            font-size: 28px;
             margin: 0;
         }
 
         .main-container {
             max-width: 600px;
             margin: 0 auto;
-            padding: 20px 0;
+            padding: 20px 10px;
         }
 
-        /* --- Estilo do Carrossel --- */
-        .carousel-container {
-            position: relative;
-            width: 100%;
+        /* Post */
+        .post {
+            background-color: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            margin-bottom: 40px;
             overflow: hidden;
         }
 
-        .carousel-track {
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 14px;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 12px;
+            background: #ccc;
+        }
+
+        .username {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Carrossel Ajustado */
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .carousel-container {
             display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
         }
 
-        .carousel-track::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
 
-        .carousel-slide {
+        .slide {
             min-width: 100%;
             scroll-snap-align: start;
+            position: relative;
+        }
+
+        .post-image {
+            width: 100%;
             height: 500px;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            object-fit: cover;
+            display: block;
+            background-color: #efefef;
         }
 
-        .carousel-dots {
+        .verse-overlay {
             position: absolute;
-            bottom: 15px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 5px;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            width: 70%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .dot {
-            width: 6px;
-            height: 6px;
-            background: rgba(255,255,255,0.5);
-            border-radius: 50%;
+        .verse-overlay h2 {
+            margin: 0;
+            font-size: 18px;
+            font-family: 'Georgia', serif;
+            font-style: italic;
         }
 
-        .dot.active { background: #fff; }
+        /* Footer */
+        .post-footer {
+            padding: 15px;
+        }
 
-        /* Reaproveitando estilos anteriores */
-        .post { background: white; border: 1px solid #dbdbdb; border-radius: 8px; margin-bottom: 30px; }
-        .post-header { display: flex; align-items: center; padding: 12px; }
-        .user-avatar { width: 32px; height: 32px; border-radius: 50%; margin-right: 12px; }
-        .username { font-weight: 600; font-size: 14px; }
-        .verse-overlay { background: rgba(255, 255, 255, 0.88); padding: 20px; border-radius: 4px; text-align: center; max-width: 70%; }
-        .post-footer { padding: 12px 16px; }
-        .icons { font-size: 24px; margin-bottom: 8px; }
-        .likes-count { font-weight: bold; font-size: 14px; }
-        .description { font-size: 14px; margin-top: 5px; }
-        .comments { border-top: 1px solid #efefef; margin-top: 10px; padding-top: 10px; font-size: 13px; }
+        .icons { font-size: 24px; margin-bottom: 8px; cursor: pointer; }
+        .likes { font-weight: bold; font-size: 14px; margin-bottom: 5px; display: block;}
+        .description { font-size: 14px; line-height: 1.5; }
+        
+        .comment-box {
+            margin-top: 10px;
+            border-top: 1px solid #efefef;
+            padding-top: 10px;
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
@@ -102,89 +141,63 @@
         
         <article class="post">
             <div class="post-header">
-                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=50" class="user-avatar">
+                <div class="user-avatar" style="background: #fbca04; display: flex; align-items: center; justify-content: center;">🧔</div>
                 <span class="username">moises_lider</span>
             </div>
 
-            <div class="carousel-container">
-                <div class="carousel-track">
-                    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1590424560241-e94606990479?w=800');">
-                        <div class="verse-overlay"><h2>1. Água em Sangue 🩸</h2></div>
+            <div class="carousel-wrapper">
+                <div class="carousel-container">
+                    <div class="slide">
+                        <img src="https://picsum.photos/id/1015/600/500" class="post-image" alt="Mar">
+                        <div class="verse-overlay">
+                            <h2>"Diga aos filhos de Israel que marchem!" 🌊</h2>
+                        </div>
                     </div>
-                    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1542367592-8849eb950fd8?w=800');">
-                        <div class="verse-overlay"><h2>2. Invasão de Rãs 🐸</h2></div>
+                    <div class="slide">
+                        <img src="https://picsum.photos/id/1016/600/500" class="post-image" alt="Montanha">
+                        <div class="verse-overlay">
+                            <h2>"O Senhor pelejará por vós, e vós vos calareis." ⚡</h2>
+                        </div>
                     </div>
-                    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1533038590840-1cde6e668a91?w=800');">
-                        <div class="verse-overlay"><h2>3. Escuridão Total 🌑</h2></div>
-                    </div>
-                </div>
-                <div class="carousel-dots">
-                    <div class="dot active"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
                 </div>
             </div>
 
             <div class="post-footer">
                 <div class="icons">❤️ 💬 ✈️</div>
-                <span class="likes-count">45.890 curtidas</span>
+                <span class="likes">Curtido por arão_bro e outras 50.231 pessoas</span>
                 <div class="description">
-                    <b>moises_lider</b> Arraste para o lado para ver o que aconteceu quando o Faraó disse "não". 😤 #LibertaMeuPovo #Pragas #Egito
+                    <b>moises_lider</b> Arraste para o lado e veja o mar abrir! Que dia, meus amigos. Que dia! 🙌 #Exodo #Milagre #Fé
                 </div>
-                <div class="comments">
-                    <b>farao_ofc</b> Apaga isso agora! Que falta de ética postar essas fotos. 😡<br>
-                    <b>arão_bro</b> Eu avisei que ia dar ruim... 🤷‍♂️
+                <div class="comment-box">
+                    <b>farao_ofc</b> Ainda não superei o prejuízo com os carros... 😤<br>
+                    <b>josue_oficial</b> O próximo passo é Canaã! 🏹
                 </div>
             </div>
         </article>
 
         <article class="post">
             <div class="post-header">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=50" class="user-avatar">
-                <span class="username">genesis_oficial</span>
+                <div class="user-avatar" style="background: #36a8f5; display: flex; align-items: center; justify-content: center;">👑</div>
+                <span class="username">rei_davi</span>
             </div>
 
-            <div class="carousel-container">
-                <div class="carousel-track">
-                    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1464802686167-b939a67e06a1?w=800');">
-                        <div class="verse-overlay"><h2>"No princípio, criou Deus os céus e a terra." 🌌</h2></div>
-                    </div>
-                    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800');">
-                        <div class="verse-overlay"><h2>"E viu Deus que tudo era muito bom." 🌱</h2></div>
-                    </div>
-                </div>
-                <div class="carousel-dots">
-                    <div class="dot active"></div>
-                    <div class="dot"></div>
+            <div class="carousel-wrapper">
+                <img src="https://picsum.photos/id/1025/600/500" class="post-image">
+                <div class="verse-overlay">
+                    <h2>"O Senhor é a minha luz e a minha salvação." 🕯️</h2>
                 </div>
             </div>
 
             <div class="post-footer">
                 <div class="icons">❤️ 💬 ✈️</div>
-                <span class="likes-count">99.999 curtidas</span>
+                <span class="likes">8.940 curtidas</span>
                 <div class="description">
-                    <b>genesis_oficial</b> O maior projeto de design de todos os tempos. Arraste para ver os detalhes do Day 1 e Day 2. ✨ #TheBeginning #Creation #Nature
-                </div>
-                <div class="comments">
-                    <b>adao_original</b> Top demais! Mal posso esperar pelo que vem depois. 🙌<br>
-                    <b>eva_jardim</b> Que cenário lindo! 😍
+                    <b>rei_davi</b> Compondo no palácio hoje. A inspiração vem lá do alto! 🎶✨ #Salmos #Gratidão
                 </div>
             </div>
         </article>
 
     </div>
 
-    <script>
-        // Lógica simples para mudar a cor dos dots ao fazer scroll
-        document.querySelectorAll('.carousel-track').forEach(track => {
-            track.addEventListener('scroll', () => {
-                const index = Math.round(track.scrollLeft / track.offsetWidth);
-                const dots = track.parentElement.querySelectorAll('.dot');
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                });
-            });
-        });
-    </script>
 </body>
 </html>
